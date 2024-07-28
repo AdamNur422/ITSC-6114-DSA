@@ -14,7 +14,7 @@ You can install the required Python packages using pip:
 
 ```bash
 pip install matplotlib numpy
-
+```
 ## Recursion Limit
 
 I set the maximum number of recursions to 10^6 you can change thhis limit if you recieve a stackover flow error but the shorter the limit the more likely you will get a recursion depth error while sorting arrays with large input sizes. 
