@@ -1,9 +1,11 @@
 import os
 import heapq
+import timeit
 from collections import defaultdict
 from PIL import Image
 
 def dijkstra(graph, source):
+    start_time = timeit.default_timer()
     distances = {vertex: float('infinity') for vertex in graph}
     distances[source] = 0
     priority_queue = [(0, source)]
@@ -24,7 +26,9 @@ def dijkstra(graph, source):
                 heapq.heappush(priority_queue, (distance, neighbor))
                 paths[neighbor] = paths[current_vertex] + [neighbor]
 
-    return distances, paths
+    end_time = timeit.default_timer()  
+    runtime = end_time - start_time
+    return distances, paths, runtime
 
 def read_input(file_path):
     with open(file_path, 'r') as file:
@@ -56,10 +60,11 @@ def process_graph(file_path, image_path):
         else:
             print(f"Node {source} not found in the graph. Enter a valid source node.")
 
-    distances, paths = dijkstra(graph, source)
+    distances, paths, runtime = dijkstra(graph, source)
     print(f"Single-source Shortest Paths from {source}")
     for vertex in distances:
         print(f"Path to {vertex}: {' -> '.join(paths[vertex])}, Cost: {distances[vertex]}")
+    print(f"Runtime: {runtime:.10f} seconds")
 
     img = Image.open(image_path)
     img.show()
@@ -81,7 +86,7 @@ def main():
         else:
             print("Invalid choice. Enter 1 or 2.")
 
-    input_files = ['input1.txt', 'input2.txt', 'input3.txt','input4.txt']
+    input_files = ['input1.txt', 'input2.txt', 'input3.txt', 'input4.txt']
     image_files = ['1.png', '2.png', '3.png', '4.png']
 
     while True:

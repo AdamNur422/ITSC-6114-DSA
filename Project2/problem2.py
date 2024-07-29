@@ -1,4 +1,5 @@
 import os
+import timeit
 from collections import defaultdict
 
 class DisjointSet:
@@ -68,12 +69,18 @@ def read_input(file_path):
 
 def process_graph(file_path):
     graph = read_input(file_path)
+    
+    start_time = timeit.default_timer()
     mst, total_cost = kruskal(graph)
+    end_time = timeit.default_timer()
+    
+    runtime = end_time - start_time
 
     print("Edges in the Minimum Spanning Tree:")
     for u, v, weight in mst:
         print(f"{u} -- {v} == {weight}")
     print(f"Total cost of MST: {total_cost}")
+    print(f"Runtime algorithm: {runtime:.10f} seconds")
 
 def main():
     input_files = ['input1.txt', 'input2.txt', 'input3.txt', 'input4.txt']
