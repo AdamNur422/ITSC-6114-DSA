@@ -23,6 +23,7 @@ Make sure that the project structure looks like this:
 Project2
 │
 ├── problem1.py
+├── problem2.py
 └── graphs/
 ├── directed/
 │ ├── input1.txt

@@ -1,5 +1,5 @@
-from collections import defaultdict
 import os
+from collections import defaultdict
 
 class DisjointSet:
     def __init__(self, vertices):
@@ -28,7 +28,8 @@ def kruskal(graph):
     edges = []
     for u in graph:
         for v in graph[u]:
-            edges.append((graph[u][v], u, v))
+            if (u, v, graph[u][v]) not in edges and (v, u, graph[u][v]) not in edges:
+                edges.append((graph[u][v], u, v))
     edges.sort()
 
     vertices = list(graph.keys())
@@ -50,14 +51,17 @@ def read_input(file_path):
     with open(file_path, 'r') as file:
         lines = file.readlines()
 
-    num_vertices, num_edges = map(int, lines[0].strip().split())
+    num_vertices, num_edges, graph_type = lines[0].strip().split()
+    num_vertices = int(num_vertices)
+    num_edges = int(num_edges)
     graph = defaultdict(dict)
 
     for line in lines[1:]:
-        u, v, w = line.strip().split()
-        w = int(w)
-        graph[u][v] = w
-        if 'U' in file_path:
+        parts = line.strip().split()
+        if len(parts) == 3:
+            u, v, w = parts
+            w = int(w)
+            graph[u][v] = w
             graph[v][u] = w
 
     return graph
@@ -72,22 +76,6 @@ def process_graph(file_path):
     print(f"Total cost of MST: {total_cost}")
 
 def main():
-    while True:
-        print("Choose the type of graph:")
-        print("1. Undirected Graph")
-        print("2. Directed Graph")
-
-        choice = input("Enter 1 or 2: ").strip()
-
-        if choice == '1':
-            graph_type = 'undirected'
-            break
-        elif choice == '2':
-            graph_type = 'directed'
-            break
-        else:
-            print("Invalid choice. Enter 1 or 2.")
-
     input_files = ['input1.txt', 'input2.txt', 'input3.txt']
 
     while True:
@@ -98,7 +86,7 @@ def main():
         file_choice = input("Enter the file number (1, 2, or 3): ").strip()
         
         if file_choice in ['1', '2', '3']:
-            file_path = os.path.join('graphs', graph_type, input_files[int(file_choice) - 1])
+            file_path = os.path.join('graphs', 'undirected', input_files[int(file_choice) - 1])
             if os.path.exists(file_path):
                 process_graph(file_path)
                 break
