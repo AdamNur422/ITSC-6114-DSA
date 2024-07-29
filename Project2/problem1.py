@@ -93,8 +93,8 @@ def main():
         file_choice = input("Enter the file number (1, 2, or 3): ").strip()
         
         if file_choice in ['1', '2', '3']:
-            file_path = os.path.join('Project2', 'graphs', graph_type, input_files[int(file_choice) - 1])
-            image_path = os.path.join('Project2', 'graphs', graph_type, image_files[int(file_choice) - 1])
+            file_path = os.path.join('graphs', graph_type, input_files[int(file_choice) - 1])
+            image_path = os.path.join('graphs', graph_type, image_files[int(file_choice) - 1])
             if os.path.exists(file_path) and os.path.exists(image_path):
                 process_graph(file_path, image_path)
                 break
