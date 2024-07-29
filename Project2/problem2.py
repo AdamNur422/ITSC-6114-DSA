@@ -76,16 +76,16 @@ def process_graph(file_path):
     print(f"Total cost of MST: {total_cost}")
 
 def main():
-    input_files = ['input1.txt', 'input2.txt', 'input3.txt']
+    input_files = ['input1.txt', 'input2.txt', 'input3.txt', 'input4.txt']
 
     while True:
         print("Choose the Graph:")
         for i, file_name in enumerate(input_files, start=1):
             print(f"{i}. {file_name}")
 
-        file_choice = input("Enter the file number (1, 2, or 3): ").strip()
+        file_choice = input("Enter the file number (1, 2, 3, or 4): ").strip()
         
-        if file_choice in ['1', '2', '3']:
+        if file_choice in ['1', '2', '3', '4']:
             file_path = os.path.join('graphs', 'undirected', input_files[int(file_choice) - 1])
             if os.path.exists(file_path):
                 process_graph(file_path)
@@ -93,7 +93,7 @@ def main():
             else:
                 print(f"File {file_path} not found.")
         else:
-            print("Invalid file choice. Enter 1, 2, or 3.")
+            print("Invalid file choice. Enter 1, 2, 3, or 4.")
 
 if __name__ == "__main__":
     main()
